@@ -18,7 +18,7 @@ variable "tags" {
 variable "nat_gateway" {
   type        = bool
   default     = false
-  description = "Indentifica si desea crear la VPC con una NAT Gateway"
+  description = "Identifica si desea crear la VPC con una NAT Gateway"
 }
 variable "nat_instance" {
   type        = bool
