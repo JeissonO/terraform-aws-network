@@ -28,6 +28,6 @@ module "nat_instance" {
   private_subnet_ids   = module.vpc.private_subnet_ids
   route_table_id       = module.vpc.private_route_table_id
   vpc_id               = module.vpc.vpc_id
-  private_subnet_cidrs = module.vpc.private_subnet_cidrs
+  private_subnet_cidrs = var.private_subnet_cidrs
   tags                 = var.tags
 }
