@@ -18,7 +18,3 @@ output "public_route_table_id" {
   description = "id de la route table publica"
   value       = aws_route_table.public.id
 }
-output "private_subnet_cidrs" {
-  description = "CIDR de las subnets privadas"
-  value       = var.private_subnet_cidrs
-}
