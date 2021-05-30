@@ -1,14 +1,14 @@
 /*Main VPC*/
 resource "aws_vpc" "main" {
   cidr_block           = var.cidr_block
-  tags                 = local.common_tags
+  tags                 = merge({ Name = "${var.environment}_${var.organization}_${var.project}_vpc" }, var.tags, )
   enable_dns_hostnames = true
   enable_dns_support   = true
 }
 /* Internet gateway for the public subnet */
 resource "aws_internet_gateway" "ig" {
   vpc_id     = aws_vpc.main.id
-  tags       = local.common_tags
+  tags       = merge({ Name = "${var.environment}_${var.organization}_${var.project}_ig" }, var.tags, )
   depends_on = [aws_vpc.main]
 }
 data "aws_availability_zones" "available" {
@@ -21,7 +21,7 @@ resource "aws_subnet" "public" {
   cidr_block              = element(var.public_subnet_cidrs, count.index)
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
   map_public_ip_on_launch = true
-  tags                    = local.common_tags
+  tags                    = merge({ Name = "${var.environment}_${var.organization}_${var.project}_public_subnet" }, var.tags, )
 }
 /* Subnet Privada*/
 resource "aws_subnet" "private" {
@@ -30,12 +30,12 @@ resource "aws_subnet" "private" {
   cidr_block              = element(var.private_subnet_cidrs, count.index)
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
   map_public_ip_on_launch = false
-  tags                    = local.common_tags
+  tags                    = merge({ Name = "${var.environment}_${var.organization}_${var.project}_private_subnet" }, var.tags, )
 }
 // RouteTable Privada
 resource "aws_route_table" "private" {
   vpc_id     = aws_vpc.main.id
-  tags       = local.common_tags
+  tags       = merge({ Name = "${var.environment}_${var.organization}_${var.project}_private_rt" }, var.tags, )
   depends_on = [aws_vpc.main]
 }
 /* RouteTable Default*/
@@ -45,7 +45,7 @@ resource "aws_default_route_table" "default" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.ig.id
   }
-  tags = local.common_tags
+  tags = merge({ Name = "${var.environment}_${var.organization}_${var.project}_default_rt" }, var.tags, )
 
   depends_on = [aws_internet_gateway.ig]
 }
@@ -56,7 +56,7 @@ resource "aws_route_table" "public" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.ig.id
   }
-  tags       = local.common_tags
+  tags       = merge({ Name = "${var.environment}_${var.organization}_${var.project}_public_rt" }, var.tags, )
   depends_on = [aws_vpc.main]
   lifecycle {
     ignore_changes = [route]
@@ -95,5 +95,5 @@ resource "aws_network_acl" "private" {
     from_port  = 0
     to_port    = 0
   }
-  tags = local.common_tags
+  tags = merge({ Name = "${var.environment}_${var.organization}_${var.project}_private_acl" }, var.tags, )
 }

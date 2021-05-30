@@ -15,9 +15,6 @@ variable "tags" {
   type        = map(any)
   default     = {}
 }
-locals {
-  common_tags = merge({ Name = "${var.environment}_${var.project}_vpc" }, var.tags, )
-}
 variable "cidr_block" {
   description = "CIDR de la VPC"
   default     = "20.0.0.0/16"
