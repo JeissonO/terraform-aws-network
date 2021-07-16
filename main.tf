@@ -7,6 +7,9 @@ module "vpc" {
   public_subnet_cidrs  = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
   tags                 = var.tags
+  environment          = var.environment
+  organization         = var.organization
+  project              = var.project
 }
 #########################
 ##  Deploy Nat Gateway ## 
@@ -17,6 +20,9 @@ module "nat_gateway" {
   public_subnet_ids = module.vpc.public_subnet_ids
   route_table_id    = module.vpc.private_route_table_id
   tags              = var.tags
+  environment       = var.environment
+  organization      = var.organization
+  project           = var.project
 }
 ##########################
 ##  Deploy Nat Instance ## 
@@ -30,4 +36,7 @@ module "nat_instance" {
   vpc_id               = module.vpc.vpc_id
   private_subnet_cidrs = var.private_subnet_cidrs
   tags                 = var.tags
+  environment          = var.environment
+  organization         = var.organization
+  project              = var.project
 }
