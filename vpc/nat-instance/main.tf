@@ -39,7 +39,7 @@ resource "aws_network_interface" "this" {
     Resource     = var.resource
   }
 }
-# AMI of the latest Amazon Linux 2 
+# AMI of the latest Amazon Linux 2
 data "aws_ami" "this" {
   most_recent = true
   owners      = ["amazon"]

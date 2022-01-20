@@ -1,5 +1,5 @@
 #####################
-##  Deploy a vpc   ## 
+##  Deploy a vpc   ##
 #####################
 module "vpc" {
   source               = "./vpc"
@@ -12,7 +12,7 @@ module "vpc" {
   project              = var.project
 }
 #########################
-##  Deploy Nat Gateway ## 
+##  Deploy Nat Gateway ##
 #########################
 module "nat_gateway" {
   source            = "./vpc/nat-gateway"
@@ -25,7 +25,7 @@ module "nat_gateway" {
   project           = var.project
 }
 ##########################
-##  Deploy Nat Instance ## 
+##  Deploy Nat Instance ##
 ##########################
 module "nat_instance" {
   source               = "./vpc/nat-instance"

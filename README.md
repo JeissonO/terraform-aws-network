@@ -1,5 +1,5 @@
 # terraform-aws-network
-Modulo de red que permite crear una VPC en AWS con opción de crearla con una NAT Gateway, con una NAT Instance o con ninguna de las 2. 
+Modulo de red que permite crear una VPC en AWS con opción de crearla con una NAT Gateway, con una NAT Instance o con ninguna de las 2.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
